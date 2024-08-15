@@ -1,0 +1,46 @@
+Usuario
+- id
+- nome
+- telefone
+- endereço
+- lista de cachorros
+- lista de serviços
+ 
+-métodos-
+listarCachorros
+cadastrarCachorro
+getCachorro
+removerCachorro
+listarServiços
+cadastrarServiços
+removerServiços
+trocarServiços
+
+---------------------------------
+Cachorro
+- id
+- nome
+- raça
+- idade
+- porte
+
+-métodos-
+
+---------------------------------
+Serviço
+- nome
+- id
+- descrição
+- data
+- horario
+- lista usuario
+- status
+- limite
+
+-métodos-
+adicionarUsuario
+mudarStatus
+listarUsuarios
+removerUsuario
+
+
