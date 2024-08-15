@@ -1,0 +1,53 @@
+package org.example;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+public class PetCareImpl {
+    private int usuarioCounter = 0;
+    private int cachorroCounter = 0;
+    private int servicoCounter = 0;
+
+    HashMap<String, Object> bancoDados = new HashMap<>();
+
+    public String agendarServicos(String nome, String id, String descricao, Date data, String observacao, String horario, String status, int limite) {
+        String servicoId = "SRV" + servicoCounter++;
+        Servico servico = new Servico(nome, id, descricao, data, observacao, horario, status, limite);
+
+        bancoDados.put(servicoId, servico);
+
+        return "Serviço agendado!";
+    }
+
+    public String listarServicos() {
+        String listaServicos = "";
+
+        for(Map.Entry<String, Object> servico : bancoDados.entrySet()) {
+            if(servico.getValue() instanceof Servico) {
+                listaServicos += servico.getValue().toString() + "\n";
+            }
+        }
+        return listaServicos;
+    }
+
+    public String mudarObservacao(String id, String observacao) {
+        if (bancoDados.containsKey(id)) {
+            ((Servico) bancoDados.get(id)).setObservacao(observacao);
+            return "A observação do serviço foi mudado com sucesso!";
+        } else {
+            return "Não foi possivel mudar a observação!";
+        }
+
+    }
+
+    public void removerServico(String servicoId) {
+        if (bancoDados.containsKey(servicoId)) {
+            System.out.println("O servico foi removido com sucesso!");
+            bancoDados.remove(servicoId);
+        } else {
+            System.out.println("Não foi possivel achar o serviço");
+        }
+    }
+}
+
