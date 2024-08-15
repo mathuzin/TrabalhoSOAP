@@ -1,19 +1,17 @@
-package org.example;
-
 import java.util.ArrayList;
 
 public class Usuario {
     private int id;
     private String nome;
-    private int telfone;
+    private String telefone;
     private String endereco;
     private ArrayList<Cachorro> listaCachorro;
     private ArrayList<Servico> listaServico;
 
-    public Usuario(int id, String nome, int telfone, String endereco, ArrayList<Cachorro> listaCachorro, ArrayList<Servico> listaServico) {
+    public Usuario(int id, String nome, String telefone, String endereco, ArrayList<Cachorro> listaCachorro, ArrayList<Servico> listaServico) {
         this.id = id;
         this.nome = nome;
-        this.telfone = telfone;
+        this.telefone = telefone;
         this.endereco = endereco;
         this.listaCachorro = listaCachorro;
         this.listaServico = listaServico;
@@ -35,12 +33,12 @@ public class Usuario {
         this.nome = nome;
     }
 
-    public int getTelfone() {
-        return telfone;
+    public String getTelefone() {
+        return telefone;
     }
 
-    public void setTelfone(int telfone) {
-        this.telfone = telfone;
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
     }
 
     public String getEndereco() {
@@ -66,4 +64,39 @@ public class Usuario {
     public void setListaServico(ArrayList<Servico> listaServico) {
         this.listaServico = listaServico;
     }
+
+    @Override
+    public String toString() {
+        return "Nome: " + nome + "\n" +
+                "Telefone: " +  telefone + "\n" +
+                "Endereço: " + endereco;
+    }
+
+    public String listarCachorros() {
+        String r = "";
+        for (Cachorro cachorro : listaCachorro) {
+            r = cachorro.toString();
+        }
+        return r;
+    }
+
+    public void cadastrarCachorro(Cachorro cachorro) {
+        listaCachorro.add(cachorro);
+        System.out.println("Cachorro cadastrado com sucesso!");
+    }
+
+    public void removerCachorro(int id) {
+        for (Cachorro cachorro : listaCachorro) {
+            if (id == cachorro.getId()){
+                listaCachorro.remove(cachorro);
+            }
+        }
+        System.out.println("Cachorro removido com sucesso!");
+    }
+
+    public void cadastrarServico(Servico servico) {
+        listaServico.add(servico);
+    }
+
+
 }
