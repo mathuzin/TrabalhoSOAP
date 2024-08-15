@@ -1,0 +1,58 @@
+ public String cadastrarCachorro(String nome, String raca, int idade, String porte ) {
+
+        String cachorroID = "DOG" + cachorroCounter++;
+        Cachorro cachorro = new Cachorro(cachorroID, nome, raca, idade, porte);
+
+        bancodeDados.put(cachorro.getId(), cachorro);
+
+        return cachorro.getNome() + " cadastrado(a) com ID: " + cachorro.getId();
+    }
+
+    public String listarCachorros(String idUsuario) {
+
+        String dados = "";
+
+        if (bancodeDados.containsKey(idUsuario)){
+            Usuario usuario = (Usuario) bancodeDados.get(idUsuario);
+            ArrayList<Cachorro> listaCachorros = usuario.getListaCachorro();
+
+            if (listaCachorros.isEmpty()){
+                dados += "Não há cachorros cadastardos neste usuário.";
+            } else {
+                for (Cachorro cachorro : listaCachorros) {
+                    dados += cachorro.toString() + "\n";
+                }
+            }
+        } else {
+            dados = "Usuário não encontrado.";
+        }
+
+        return dados;
+    }
+
+    public String alterarIdadeCachorro(String idCachorro, int idadeNova){
+
+        String dados = "";
+
+        if (bancodeDados.containsKey(idCachorro)) {
+            ((Cachorro) bancodeDados.get(idCachorro)).setIdade(idadeNova);
+
+            return "Idade do " + ((Cachorro) bancodeDados.get(idCachorro)).getNome() +
+                    " alterada para " + ((Cachorro) bancodeDados.get(idCachorro)).getIdade();
+        } else {
+            return "Animal não encontrado.";
+        }
+    }
+
+    public String removerCachorro(String idCachorro) {
+        String dados = "";
+
+        if (bancodeDados.containsKey(idCachorro)) {
+            bancodeDados.remove(idCachorro);
+            dados = "Cachorro removido com sucesso!";
+        } else {
+            dados = "Cachorro não encontrado.";
+        }
+
+        return dados;
+    }
