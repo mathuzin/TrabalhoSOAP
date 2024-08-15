@@ -1,21 +1,22 @@
+import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 
 public class Servico {
     private int id;
     private String nome;
     private String descricao;
     private Date data;
-    private String horario;
-    private Usuario listaUsuarios;
-    private String status;
+    private HashMap<Integer, Usuario> listaUsuarios;
+    private boolean status;
     private int limite;
+    private int participantes;
 
-    public Servico(int id, String nome, String descricao, Date data, String horario, Usuario listaUsuarios, String status, int limite) {
+    public Servico(int id, String nome, String descricao, Date data, HashMap<Integer, Usuario> listaUsuarios, boolean status, int limite) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
         this.data = data;
-        this.horario = horario;
         this.listaUsuarios = listaUsuarios;
         this.status = status;
         this.limite = limite;
@@ -53,28 +54,24 @@ public class Servico {
         this.data = data;
     }
 
-    public String getHorario() {
-        return horario;
-    }
-
-    public void setHorario(String horario) {
-        this.horario = horario;
-    }
-
-    public Usuario getListaUsuarios() {
+    public HashMap<Integer, Usuario> getListaUsuarios() {
         return listaUsuarios;
     }
 
-    public void setListaUsuarios(Usuario listaUsuarios) {
+    public void setListaUsuarios(HashMap<Integer, Usuario> listaUsuarios) {
         this.listaUsuarios = listaUsuarios;
     }
 
-    public String getStatus() {
+    public boolean isStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(boolean status) {
         this.status = status;
+    }
+
+    public void setParticipantes(int participantes) {
+        this.participantes = participantes;
     }
 
     public int getLimite() {
@@ -92,10 +89,47 @@ public class Servico {
                 ", nome='" + nome + '\'' +
                 ", descricao='" + descricao + '\'' +
                 ", data=" + data +
-                ", horario='" + horario + '\'' +
                 ", listaUsuarios=" + listaUsuarios +
                 ", status='" + status + '\'' +
                 ", limite=" + limite +
                 '}';
+    }
+
+    private int getParticipantes() {
+        return participantes;
+    }
+
+    public String adicionarUsuario(Usuario usuario) {
+        if (status) {
+            if (participantes < limite) {
+                listaUsuarios.put(usuario.getId(), usuario);
+                participantes++;
+                if (participantes == limite) {
+                    mudarStatus();
+                }
+                return "Usuário adicionado com sucesso \n";
+            } else {
+                return "O serviço atingiu seu limite de participantes \n";
+            }
+        } else {
+            return "Não é possível adicionar mais participantes \n";
+        }
+    }
+
+    private void mudarStatus() {
+        this.status = participantes < limite;
+    }
+
+    public String listarUsuarios() {
+        String dados = "";
+        for (Integer id : listaUsuarios.keySet()) {
+            Usuario u = listaUsuarios.get(id);
+            dados += u.toString() + "\n";
+        }
+        return dados;
+    }
+
+    public void removerUsuario(Integer idExcluir) {
+        listaUsuarios.remove(idExcluir);
     }
 }
