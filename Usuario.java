@@ -1,27 +1,28 @@
 import java.util.ArrayList;
 
 public class Usuario {
-    private int id;
+    private String id;
     private String nome;
     private String telefone;
     private String endereco;
     private ArrayList<Cachorro> listaCachorro;
     private ArrayList<Servico> listaServico;
 
-    public Usuario(int id, String nome, String telefone, String endereco, ArrayList<Cachorro> listaCachorro, ArrayList<Servico> listaServico) {
-        this.id = id;
+    public Usuario() {
+    }
+
+    public Usuario(String nome, String telefone, String endereco, String id) {
         this.nome = nome;
         this.telefone = telefone;
         this.endereco = endereco;
-        this.listaCachorro = listaCachorro;
-        this.listaServico = listaServico;
+        this.id = id;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -85,9 +86,9 @@ public class Usuario {
         System.out.println("Cachorro cadastrado com sucesso!");
     }
 
-    public void removerCachorro(int id) {
+    public void removerCachorro(String id) {
         for (Cachorro cachorro : listaCachorro) {
-            if (id == cachorro.getId()){
+            if (id.equalsIgnoreCase(cachorro.getId())){
                 listaCachorro.remove(cachorro);
             }
         }

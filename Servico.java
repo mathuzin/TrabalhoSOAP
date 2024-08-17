@@ -1,33 +1,52 @@
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
 public class Servico {
-    private int id;
+    private String id;
     private String nome;
     private String descricao;
     private Date data;
-    private HashMap<Integer, Usuario> listaUsuarios;
+    private String observacao;
+    private HashMap<String, Usuario> listaUsuarios;
     private boolean status;
     private int limite;
     private int participantes;
 
-    public Servico(int id, String nome, String descricao, Date data, HashMap<Integer, Usuario> listaUsuarios, boolean status, int limite) {
-        this.id = id;
+    public Servico() {
+    }
+
+    public Servico(String nome, String id, String descricao, Date data, String observacao, boolean status, int limite) {
         this.nome = nome;
+        this.id = id;
         this.descricao = descricao;
         this.data = data;
-        this.listaUsuarios = listaUsuarios;
+        this.observacao = observacao;
         this.status = status;
         this.limite = limite;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
+    }
+
+    public String getObservacao() {
+        return observacao;
+    }
+
+    public void setObservacao(String observacao) {
+        this.observacao = observacao;
+    }
+
+    public HashMap<String, Usuario> getListaUsuarios() {
+        return listaUsuarios;
+    }
+
+    public void setListaUsuarios(HashMap<String, Usuario> listaUsuarios) {
+        this.listaUsuarios = listaUsuarios;
     }
 
     public String getNome() {
@@ -52,14 +71,6 @@ public class Servico {
 
     public void setData(Date data) {
         this.data = data;
-    }
-
-    public HashMap<Integer, Usuario> getListaUsuarios() {
-        return listaUsuarios;
-    }
-
-    public void setListaUsuarios(HashMap<Integer, Usuario> listaUsuarios) {
-        this.listaUsuarios = listaUsuarios;
     }
 
     public boolean isStatus() {
@@ -122,7 +133,7 @@ public class Servico {
 
     public String listarUsuarios() {
         String dados = "";
-        for (Integer id : listaUsuarios.keySet()) {
+        for (String id : listaUsuarios.keySet()) {
             Usuario u = listaUsuarios.get(id);
             dados += u.toString() + "\n";
         }
