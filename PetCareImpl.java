@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 
 public class PetCareImpl {
 
@@ -28,22 +29,29 @@ public class PetCareImpl {
         return "Usuario " + id + "\n" + bancoDados.get(id).toString();
     }
 
-    public String atualizarUsuario() {
-        return "";
+    public String atualizarTelefoneUsuario(String id, String novoTelefone) {
+        if (bancoDados.containsKey(id)) {
+            Usuario usuario = (Usuario) bancoDados.get(id);
+            usuario.setTelefone(novoTelefone);
+            return "Telefone do usuario " + usuario.getId() + " atualizado com sucesso!";
+        } else {
+            return "Não foi possível atualizar o telefone";
+        }
     }
 
-    public String excluirUsuario() {
-        return "";
+    public String excluirUsuario(String id) {
+        if (bancoDados.containsKey(id)) {
+            bancoDados.remove(id);
+            return "Usuario removido com sucesso!";
+        } else {
+            return "Usuario não encontrado.";
+        }
     }
-
 
     //------ CRUD SERVIÇOS ------//
 
     public String agendarServicos(String nome, String id, String descricao, Date data, String observacao, boolean status, int limite) {
         String servicoId = "SRV" + servicoCounter++;
-        Servico servico = new Servico(nome, id, descricao, data, observacao, status, limite);
-
-        bancoDados.put(servicoId, servico);
 
         return "Serviço agendado!";
     }
@@ -113,9 +121,6 @@ public class PetCareImpl {
     }
 
     public String alterarIdadeCachorro(String idCachorro, int idadeNova){
-
-        String dados = "";
-
         if (bancoDados.containsKey(idCachorro)) {
             ((Cachorro) bancoDados.get(idCachorro)).setIdade(idadeNova);
 
@@ -127,16 +132,13 @@ public class PetCareImpl {
     }
 
     public String removerCachorro(String idCachorro) {
-        String dados = "";
 
         if (bancoDados.containsKey(idCachorro)) {
             bancoDados.remove(idCachorro);
-            dados = "Cachorro removido com sucesso!";
+            return "Cachorro removido com sucesso!";
         } else {
-            dados = "Cachorro não encontrado.";
+            return "Cachorro não encontrado.";
         }
-
-        return dados;
     }
 
 }
