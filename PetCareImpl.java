@@ -88,10 +88,13 @@ public class PetCareImpl {
 
     //------ CRUD CACHORROS ------//
 
-    public String cadastrarCachorro(String nome, String raca, int idade, String porte ) {
+    public String cadastrarCachorro(String idUsuario, String nome, String raca, int idade, String porte ) {
 
         String cachorroID = "DOG" + cachorroCounter++;
         Cachorro cachorro = new Cachorro(cachorroID, nome, raca, idade, porte);
+
+        Usuario usuario = (Usuario) bancoDados.get(idUsuario);
+        usuario.cadastrarCachorro(cachorro);
 
         bancoDados.put(cachorroID, cachorro);
 
