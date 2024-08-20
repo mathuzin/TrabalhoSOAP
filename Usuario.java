@@ -30,7 +30,10 @@ public class Usuario {
         return nome;
     }
 
-    public void setNome(String nome) {
+    public void setNome(String nome) throws IllegalArgumentException {
+        if (nome == null || nome.isEmpty()) {
+            throw new IllegalArgumentException("Nome não pode ser vazio");
+        }
         this.nome = nome;
     }
 
@@ -38,7 +41,10 @@ public class Usuario {
         return telefone;
     }
 
-    public void setTelefone(String telefone) {
+    public void setTelefone(String telefone) throws IllegalArgumentException {
+        if (telefone == null || telefone.isEmpty() || telefone.length() > 11) {
+            throw new IllegalArgumentException("Telefone não pode ser vazio");
+        }
         this.telefone = telefone;
     }
 
@@ -46,7 +52,10 @@ public class Usuario {
         return endereco;
     }
 
-    public void setEndereco(String endereco) {
+    public void setEndereco(String endereco) throws IllegalArgumentException {
+        if (endereco == null || endereco.isEmpty()) {
+            throw new IllegalArgumentException("Endereço não pode ser vazio");
+        }
         this.endereco = endereco;
     }
 
