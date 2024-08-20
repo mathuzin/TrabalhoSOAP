@@ -73,14 +73,6 @@ public class Usuario {
                 "Endereço: " + endereco;
     }
 
-    public String listarCachorros() {
-        String r = "";
-        for (Cachorro cachorro : listaCachorro) {
-            r = cachorro.toString();
-        }
-        return r;
-    }
-
     public void cadastrarCachorro(Cachorro cachorro) {
         listaCachorro.add(cachorro);
         System.out.println("Cachorro cadastrado com sucesso!");
@@ -99,5 +91,12 @@ public class Usuario {
         listaServico.add(servico);
     }
 
+    public void removerServico(String idServico) {
+        for (Servico s : listaServico) {
+            if (idServico.equalsIgnoreCase(s.getId())) {
+                listaServico.remove(s);
+            }
+        }
+    }
 
 }

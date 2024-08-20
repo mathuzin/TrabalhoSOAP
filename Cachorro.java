@@ -3,17 +3,15 @@ public class Cachorro {
     private String nome;
     private String raca;
     private int idade;
-    private String porte;
 
     public Cachorro() {
     }
 
-    public Cachorro(String id, String nome, String raca, int idade, String porte) {
+    public Cachorro(String id, String nome, String raca, int idade) {
         this.id = id;
         this.nome = nome;
         this.raca = raca;
         this.idade = idade;
-        this.porte = porte;
     }
 
     public String getId() {
@@ -48,14 +46,6 @@ public class Cachorro {
         this.idade = idade;
     }
 
-    public String getPorte() {
-        return porte;
-    }
-
-    public void setPorte(String porte) {
-        this.porte = porte;
-    }
-
     @Override
     public String toString() {
         return "Cachorro{" +
@@ -63,7 +53,6 @@ public class Cachorro {
                 ", nome='" + nome + '\'' +
                 ", raca='" + raca + '\'' +
                 ", idade=" + idade +
-                ", porte='" + porte + '\'' +
                 '}';
     }
 }
