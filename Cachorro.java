@@ -1,3 +1,5 @@
+package org.example;
+
 public class Cachorro {
     private String id;
     private String nome;
@@ -27,6 +29,9 @@ public class Cachorro {
     }
 
     public void setNome(String nome) {
+        if (nome.isEmpty()){
+            throw new IllegalArgumentException();
+        }
         this.nome = nome;
     }
 
@@ -35,6 +40,9 @@ public class Cachorro {
     }
 
     public void setRaca(String raca) {
+        if (raca.isEmpty()){
+            throw new IllegalArgumentException();
+        }
         this.raca = raca;
     }
 
@@ -43,6 +51,9 @@ public class Cachorro {
     }
 
     public void setIdade(int idade) {
+        if (idade < 0){
+            throw new IllegalArgumentException();
+        }
         this.idade = idade;
     }
 
