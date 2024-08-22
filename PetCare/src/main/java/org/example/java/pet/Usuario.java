@@ -1,6 +1,7 @@
 package pet;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Usuario {
     private String id;
@@ -18,6 +19,8 @@ public class Usuario {
         this.telefone = telefone;
         this.endereco = endereco;
         this.id = id;
+        this.listaCachorro = new ArrayList<>();
+        this.listaServico = new ArrayList<>();
     }
 
     public String getId() {
@@ -90,11 +93,14 @@ public class Usuario {
     }
 
     public void removerCachorro(String id) {
-        for (Cachorro cachorro : listaCachorro) {
-            if (id.equalsIgnoreCase(cachorro.getId())){
-                listaCachorro.remove(cachorro);
+        Iterator<Cachorro> iterator = listaCachorro.iterator();
+        while (iterator.hasNext()) {
+            Cachorro item = iterator.next();
+            if (item.getId().equals(id)) {  // Comparando o ID do serviço
+                iterator.remove();  // Remoção segura
             }
         }
+
         System.out.println("Cachorro removido com sucesso!");
     }
 
@@ -103,9 +109,11 @@ public class Usuario {
     }
 
     public void removerServico(String idServico) {
-        for (Servico s : listaServico) {
-            if (idServico.equalsIgnoreCase(s.getId())) {
-                listaServico.remove(s);
+        Iterator<Servico> iterator = listaServico.iterator();
+        while (iterator.hasNext()) {
+            Servico item = iterator.next();
+            if (item.getId().equals(idServico)) {  // Comparando o ID do serviço
+                iterator.remove();  // Remoção segura
             }
         }
     }
