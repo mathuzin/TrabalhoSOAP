@@ -59,7 +59,7 @@ public class Cachorro {
 
     @Override
     public String toString() {
-        return "pet.Cachorro{" +
+        return "Cachorro{" +
                 "id='" + id + '\'' +
                 ", nome='" + nome + '\'' +
                 ", raca='" + raca + '\'' +

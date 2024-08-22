@@ -86,6 +86,7 @@ public class Usuario {
 
     public void cadastrarCachorro(Cachorro cachorro) {
         listaCachorro.add(cachorro);
+        System.out.println("Cachorro cadastrado com sucesso!");
     }
 
     public void removerCachorro(String id) {
@@ -94,7 +95,7 @@ public class Usuario {
                 listaCachorro.remove(cachorro);
             }
         }
-        System.out.println("pet.Cachorro removido com sucesso!");
+        System.out.println("Cachorro removido com sucesso!");
     }
 
     public void cadastrarServico(Servico servico) {
