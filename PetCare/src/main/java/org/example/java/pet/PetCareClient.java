@@ -15,7 +15,10 @@ public class PetCareClient {
         Service ws = Service.create(url, qname);
         PetCareServer pet = ws.getPort(PetCareServer.class);
 
-        boolean continuar = true;
+        boolean reload = true;
+
+        while (reload) {
+            boolean continuar = true;
 
             System.out.println(" | BEM VINDO(A) AO PETCARE! | ");
             System.out.println(" |      CRIAR USUARIO       | ");
@@ -26,55 +29,58 @@ public class PetCareClient {
             System.out.println("Digite seu endereço: ");
             String endereco = sc.nextLine();
             System.out.println(pet.cadastrarUsuario(nome, telefone, endereco));
-
-            Usuario usuario = new Usuario(nome, telefone, endereco, pet.cadastrarUsuario(nome, telefone, endereco));
-
             System.out.println();
 
-        while (continuar) {
-            System.out.println("Escolha uma opção:");
-            System.out.println("1. Visualizar Usuário");
-            System.out.println("2. Cadastrar Cachorro e Informações");
-            System.out.println("3. Agendar Serviço");
-            System.out.println("4. Sair");
-            System.out.print("Opção: ");
-            int opcao = sc.nextInt();
-            sc.nextLine(); // Consumir a nova linha
+            while (continuar) {
+                System.out.println("Escolha uma opção:");
+                System.out.println("1. Visualizar Usuário");
+                System.out.println("2. Cadastrar Cachorro e Informações");
+                System.out.println("3. Agendar Serviço");
+                System.out.println("4. Sair");
+                System.out.print("Opção: ");
+                int opcao = sc.nextInt();
+                sc.nextLine(); // Consumir a nova linha
 
-            switch (opcao) {
-                case 1:
+                switch (opcao) {
+                    case 1:
 
-                    System.out.println(" |     VERIFICAR USUARIO    |");
-                    System.out.println("Escolha uma opção:");
-                    System.out.println("1. Verificar Informações.");
-                    System.out.println("2. Atualizar Telefone e/ou Endereço.");
-                    System.out.println("3. Excluir Usuário.");
-                    System.out.print("Escolha: ");
-                    int escolha = sc.nextInt();
-                    sc.nextLine();
+                        System.out.println(" |     VERIFICAR USUARIO    |");
+                        System.out.println("Escolha uma opção:");
+                        System.out.println("1. Verificar Informações.");
+                        System.out.println("2. Atualizar Telefone e/ou Endereço.");
+                        System.out.println("3. Excluir Usuário.");
+                        System.out.print("Escolha: ");
+                        int escolha = sc.nextInt();
+                        sc.nextLine();
 
-                    switch (escolha) {
-                        case 1:
-                            System.out.println("Informações do Usuario: ");
-                            System.out.println(pet.getUsuario(usuario.getId()));
-                            break;
+                        switch (escolha) {
+                            case 1:
+                                System.out.println("Informações do Usuario: ");
+                                System.out.print("Indira seu ID: ");
+                                String idUsuario = sc.nextLine();
+                                System.out.println(pet.getUsuario(idUsuario));
+                                break;
 
-                        case 2:
-                            System.out.print("Digite o novo numero de telefone: ");
-                            String novoTelefone = sc.nextLine();
-                            pet.atualizarTelefoneUsuario(usuario.getId(), novoTelefone);
-                            System.out.println("Novo telefone cadastardo!");
-                            break;
+                            case 2:
+                                System.out.print("Digite seu ID: ");
+                                idUsuario = sc.nextLine();
+                                System.out.print("Digite o novo numero de telefone: ");
+                                String novoTelefone = sc.nextLine();
+                                pet.atualizarTelefoneUsuario(idUsuario, novoTelefone);
+                                System.out.println("Novo telefone cadastardo!");
+                                break;
 
-                        case 3:
-                            System.out.println("Excluindo...");
-                            pet.excluirUsuario(usuario.getId());
-                            break;
-                    }
+                            case 3:
+                                System.out.print("Digite seu ID para confirmar: ");
+                                idUsuario = sc.nextLine();
+                                pet.excluirUsuario(idUsuario);
+                                System.out.println("Excluindo...");
+                                break;
+                        }
 
-                    break;
+                        break;
 
-                case 2:
+                    case 2:
                         System.out.println("Escolha uma das opções: ");
                         System.out.println("1. Cadastrar cachorro.");
                         System.out.println("2. Listar seus cachorros.");
@@ -96,12 +102,15 @@ public class PetCareClient {
                                 System.out.println("Digite a idade do cão: ");
                                 int idade = sc.nextInt();
                                 sc.nextLine(); // Consumir a nova linha
+                                System.out.println(idDono + "//" + nome + "//" + raca + "//" +idade);
                                 System.out.println(pet.cadastrarCachorro(idDono, nome, raca, idade));
                                 System.out.println();
                                 break;
 
                             case 2:
-                                System.out.println(pet.listarCachorros(usuario.getId()));
+                                System.out.print("Digite seu ID para confirmar: ");
+                                String idUsuario = sc.nextLine();
+                                System.out.println(pet.listarCachorros(idUsuario));
                                 System.out.println();
                                 break;
 
@@ -114,76 +123,79 @@ public class PetCareClient {
                                 System.out.println();
                                 break;
                             case 4:
+                                System.out.print("Digite seu ID para confirmar: ");
+                                idUsuario = sc.nextLine();
                                 System.out.print("Digite ID do(a) cachorro(a)");
                                 String idCachorro = sc.nextLine();
-                                System.out.println(pet.removerCachorro(idCachorro, usuario.getId()));
+                                System.out.println(pet.removerCachorro(idCachorro, idCachorro));
                                 System.out.println();
                                 break;
                             default:
                                 System.out.println("Opção inválida.");
                                 System.out.println();
                         }
-                    break;
+                        break;
 
-                case 3:
-                    System.out.println("Escolha uma das opÃ§Ãµes: ");
-                    System.out.println("1. Agendar Serviço.");
-                    System.out.println("2. Listar seus serviços.");
-                    System.out.println("3. Mudar Obersavação.");
-                    System.out.println("4. Excluir um serviço.");
-                    System.out.print("Escolha: ");
-                    int opcaoSvg = sc.nextInt();
-                    switch (opcaoSvg) {
-                        case 1:
-                            System.out.println(" |      AGENDAR SERVIÃ‡O     | ");
-                            System.out.println(pet.listarServicos());
-                            System.out.println("Digite o ID do serviÃ§o desejado: ");
-                            String idServico = sc.nextLine();
-                            System.out.println("Digite seu ID: ");
-                            String idCliente = sc.nextLine();
-                            System.out.println("Digite o ID do cÃ£o: ");
-                            String idCao = sc.nextLine();
-                            System.out.println("ObservaÃ§Ã£o: ");
-                            String observation = sc.nextLine();
-                            System.out.println(pet.agendarServicos(idServico, idCliente, idCao, observation));
-                            System.out.println();
-                            break;
+                    case 3:
+                        System.out.println("Escolha uma das opÃ§Ãµes: ");
+                        System.out.println("1. Agendar Serviço.");
+                        System.out.println("2. Listar seus serviços.");
+                        System.out.println("3. Mudar Obersavação.");
+                        System.out.println("4. Excluir um serviço.");
+                        System.out.print("Escolha: ");
+                        int opcaoSvg = sc.nextInt();
+                        switch (opcaoSvg) {
+                            case 1:
+                                System.out.println(" |      AGENDAR SERVIÃ‡O     | ");
+                                System.out.println(pet.listarServicos());
+                                System.out.println("Digite o ID do serviÃ§o desejado: ");
+                                String idServico = sc.nextLine();
+                                System.out.println("Digite seu ID: ");
+                                String idCliente = sc.nextLine();
+                                System.out.println("Digite o ID do cÃ£o: ");
+                                String idCao = sc.nextLine();
+                                System.out.println("ObservaÃ§Ã£o: ");
+                                String observation = sc.nextLine();
+                                System.out.println(pet.agendarServicos(idServico, idCliente, idCao, observation));
+                                System.out.println();
+                                break;
 
-                        case 2:
-                            System.out.println("Lista de serviço: \n" + pet.listarServicos());
-                            break;
+                            case 2:
+                                System.out.println("Lista de serviço: \n" + pet.listarServicos());
+                                break;
 
-                        case 3:
-                            System.out.println("Digite o ID do serviço: ");
-                            String idSvg = sc.nextLine();
-                            System.out.println("Digite a observação que deseja adicionar: ");
-                            String obs = sc.nextLine();
-                            System.out.println(pet.mudarObservacao(idSvg, obs));
-                            break;
+                            case 3:
+                                System.out.println("Digite o ID do serviço: ");
+                                String idSvg = sc.nextLine();
+                                System.out.println("Digite a observação que deseja adicionar: ");
+                                String obs = sc.nextLine();
+                                System.out.println(pet.mudarObservacao(idSvg, obs));
+                                break;
 
-                        case 4:
-                            System.out.println("Digite o ID do serviço: ");
-                            idSvg = sc.nextLine();
-                            System.out.println("Digite o seu ID: ");
-                            String idDono = sc.nextLine();
-                            System.out.println(pet.removerServico(idSvg, idDono));
-                            break;
+                            case 4:
+                                System.out.println("Digite o ID do serviço: ");
+                                idSvg = sc.nextLine();
+                                System.out.println("Digite o seu ID: ");
+                                String idDono = sc.nextLine();
+                                System.out.println(pet.removerServico(idSvg, idDono));
+                                break;
 
-                        default:
-                            System.out.println("Não existe a opção digitada!");
-                            break;
-                    }
-                    break;
-                case 4:
-                    System.out.println("Saindo do sistema...");
-                    continuar = false;
-                    break;
+                            default:
+                                System.out.println("Não existe a opção digitada!");
+                                break;
+                        }
+                        break;
+                    case 4:
+                        System.out.println("Saindo do sistema...");
+                        reload = false;
+                        break;
 
-                default:
-                    System.out.println("Opção inválida. Tente novamente.");
+                    default:
+                        System.out.println("Opção inválida. Tente novamente.");
+                }
             }
-        }
 
-        sc.close();
+            sc.close();
+        }
     }
 }
